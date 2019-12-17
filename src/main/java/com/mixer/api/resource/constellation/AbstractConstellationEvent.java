@@ -1,8 +1,9 @@
 package com.mixer.api.resource.constellation;
 
 import com.google.gson.annotations.SerializedName;
+import com.mixer.api.resource.constellation.events.ConstellationDisconnectEvent;
+import com.mixer.api.resource.constellation.events.HelloEvent;
 import com.mixer.api.resource.constellation.events.LiveEvent;
-
 public abstract class AbstractConstellationEvent<T extends AbstractConstellationEvent.EventData> extends AbstractConstellationDatagram {
     public AbstractConstellationEvent() {
         this.type = Type.EVENT;
@@ -13,7 +14,9 @@ public abstract class AbstractConstellationEvent<T extends AbstractConstellation
 
     public static abstract class EventData {}
     public static enum EventType {
-        @SerializedName("live") LIVE (LiveEvent.class);
+        @SerializedName("live") LIVE (LiveEvent.class),
+        @SerializedName("hello") HELLO (HelloEvent.class),
+        @SerializedName("disconnect") DISCOUNNECT (ConstellationDisconnectEvent.class);
 
         private final Class<? extends AbstractConstellationEvent> correspondingClass;
 
