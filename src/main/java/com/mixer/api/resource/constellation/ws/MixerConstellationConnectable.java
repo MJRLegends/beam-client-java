@@ -133,7 +133,7 @@ public class MixerConstellationConnectable {
         if (DISCONNECT_MSG.equals(s)) {
             return;
         }
-
+		this.disconnect();
         try {
             Thread.sleep(500);
         } catch (InterruptedException ignored) { }

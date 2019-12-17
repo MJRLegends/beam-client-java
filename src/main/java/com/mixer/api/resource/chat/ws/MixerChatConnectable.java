@@ -139,6 +139,7 @@ public class MixerChatConnectable {
             return;
         }
 
+        this.disconnect();
         try {
             Thread.sleep(500);
         } catch (InterruptedException ignored) { }
