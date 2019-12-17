@@ -74,7 +74,7 @@ public class MixerConstellationConnectable {
                     ping();
                 }
             }
-        }, 30 * 1000);
+        }, 10 * 1000, 10 * 1000);
     }
 
     /**
