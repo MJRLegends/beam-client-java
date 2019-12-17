@@ -1,7 +1,16 @@
 package com.mixer.api.resource.chat;
 
 import com.google.gson.annotations.SerializedName;
-import com.mixer.api.resource.chat.events.*;
+import com.mixer.api.resource.chat.events.ChatDisconnectEvent;
+import com.mixer.api.resource.chat.events.DeleteMessageEvent;
+import com.mixer.api.resource.chat.events.IncomingMessageEvent;
+import com.mixer.api.resource.chat.events.IncomingWidgetEvent;
+import com.mixer.api.resource.chat.events.PollEndEvent;
+import com.mixer.api.resource.chat.events.PollStartEvent;
+import com.mixer.api.resource.chat.events.StatusEvent;
+import com.mixer.api.resource.chat.events.UserJoinEvent;
+import com.mixer.api.resource.chat.events.UserLeaveEvent;
+import com.mixer.api.resource.chat.events.WelcomeEvent;
 
 public abstract class AbstractChatEvent<T extends AbstractChatEvent.EventData> extends AbstractChatDatagram {
     public AbstractChatEvent() {
@@ -20,7 +29,9 @@ public abstract class AbstractChatEvent<T extends AbstractChatEvent.EventData> e
         @SerializedName("PollEnd") POLL_END (PollEndEvent.class),
         @SerializedName("Stats") STATS (StatusEvent.class),
         @SerializedName("UserJoin") USER_JOIN (UserJoinEvent.class),
-        @SerializedName("UserLeave") USER_LEAVE (UserLeaveEvent.class);
+        @SerializedName("UserLeave") USER_LEAVE (UserLeaveEvent.class),
+        @SerializedName("disconnect") DISCOUNNECT (ChatDisconnectEvent.class),
+        @SerializedName("WelcomeEvent") WELCOME (WelcomeEvent.class);
 
         private final Class<? extends AbstractChatEvent> correspondingClass;
 
