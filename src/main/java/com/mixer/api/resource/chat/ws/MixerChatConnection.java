@@ -3,6 +3,8 @@ package com.mixer.api.resource.chat.ws;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Multimap;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
@@ -136,6 +138,17 @@ public class MixerChatConnection extends MixerWebsocketClient {
     }
 
     @Override public void onClose(int i, String s, boolean b) {
+		Class<? extends AbstractChatEvent> type = AbstractChatEvent.EventType.fromSerializedName("disconnect").getCorrespondingClass();
+		Gson gson = null;
+		gson = new GsonBuilder().create();
+		JsonObject json = new JsonObject();
+		JsonObject obj = new JsonObject();
+		obj.addProperty("code", i);
+		obj.addProperty("reason", s);
+		obj.addProperty("remote", b);
+		json.add("data", obj);
+		this.dispatchEvent(this.mixer.gson.fromJson(json, type));
+    	this.close(i);
         this.producer.notifyClose(i, s, b);
     }
 
