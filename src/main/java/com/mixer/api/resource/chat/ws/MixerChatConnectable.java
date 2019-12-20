@@ -12,8 +12,9 @@ import com.mixer.api.resource.chat.replies.ReplyHandler;
 
 import javax.net.ssl.SSLSocketFactory;
 
-import org.java_websocket.framing.Framedata;
+import org.java_websocket.enums.Opcode;
 import org.java_websocket.framing.FramedataImpl1;
+
 
 import java.io.IOException;
 import java.util.Timer;
@@ -87,7 +88,7 @@ public class MixerChatConnectable {
      */
     private void ping()
     {
-        FramedataImpl1 frame = FramedataImpl1.get(Framedata.Opcode.PING);
+        FramedataImpl1 frame = FramedataImpl1.get(Opcode.PING);
         frame.setFin(true);
         connection.sendFrame(frame);
     }
@@ -124,10 +125,6 @@ public class MixerChatConnectable {
 
     public boolean isClosing() {
         return connection.isClosing();
-    }
-
-    public boolean isConnecting() {
-        return connection.isConnecting();
     }
 
     public boolean isOpen() {
