@@ -7,9 +7,11 @@ import com.mixer.api.resource.chat.events.IncomingMessageEvent;
 import com.mixer.api.resource.chat.events.IncomingWidgetEvent;
 import com.mixer.api.resource.chat.events.PollEndEvent;
 import com.mixer.api.resource.chat.events.PollStartEvent;
+import com.mixer.api.resource.chat.events.PurgeMessageEvent;
 import com.mixer.api.resource.chat.events.StatusEvent;
 import com.mixer.api.resource.chat.events.UserJoinEvent;
 import com.mixer.api.resource.chat.events.UserLeaveEvent;
+import com.mixer.api.resource.chat.events.UserUpdateEvent;
 import com.mixer.api.resource.chat.events.WelcomeEvent;
 
 public abstract class AbstractChatEvent<T extends AbstractChatEvent.EventData> extends AbstractChatDatagram {
@@ -31,7 +33,9 @@ public abstract class AbstractChatEvent<T extends AbstractChatEvent.EventData> e
         @SerializedName("UserJoin") USER_JOIN (UserJoinEvent.class),
         @SerializedName("UserLeave") USER_LEAVE (UserLeaveEvent.class),
         @SerializedName("disconnect") DISCOUNNECT (ChatDisconnectEvent.class),
-        @SerializedName("WelcomeEvent") WELCOME (WelcomeEvent.class);
+        @SerializedName("WelcomeEvent") WELCOME (WelcomeEvent.class),
+        @SerializedName("UserUpdate") USER_UPDATE (UserUpdateEvent.class),
+        @SerializedName("PurgeMessage") PURGE_MESSAGE (PurgeMessageEvent.class);
 
         private final Class<? extends AbstractChatEvent> correspondingClass;
 
