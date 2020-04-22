@@ -32,10 +32,12 @@ public class MixerChatConnectable {
     private AuthenticateMessage auth;
 	
     private Timer pingTimer;
+    private boolean autoReconnect;
     
-    public MixerChatConnectable(MixerAPI mixer, MixerChat chat) {
+    public MixerChatConnectable(MixerAPI mixer, MixerChat chat, boolean autoReconnect) {
         this.mixer = mixer;
         this.chat = chat;
+        this.autoReconnect = autoReconnect;
     }
 
     public boolean connect() {
@@ -146,14 +148,16 @@ public class MixerChatConnectable {
         }
 
         this.disconnect();
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException ignored) { }
 
-        this.connect();
-
-        if (this.auth != null) {
-            this.send(this.auth);
+        if(autoReconnect) {
+            try {
+                Thread.sleep(5000);
+                this.reconnectBlocking();
+                if (this.auth != null) {
+                    this.send(this.auth);
+                }
+            } catch (InterruptedException e) {
+            }
         }
     }
 

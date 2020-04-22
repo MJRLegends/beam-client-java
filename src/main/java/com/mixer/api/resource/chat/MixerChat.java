@@ -14,8 +14,8 @@ public class MixerChat {
     public String role;
     public double slowchat;
 
-    public MixerChatConnectable connectable(MixerAPI mixer) {
-        return new MixerChatConnectable(mixer, this);
+    public MixerChatConnectable connectable(MixerAPI mixer, boolean autoReconnect) {
+        return new MixerChatConnectable(mixer, this, autoReconnect);
     }
 
     public URI endpoint() {

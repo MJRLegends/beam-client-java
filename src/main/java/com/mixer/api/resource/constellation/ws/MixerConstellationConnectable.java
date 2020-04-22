@@ -27,10 +27,12 @@ public class MixerConstellationConnectable {
     private MixerConstellationConnection connection;
 
     private Timer pingTimer;
+    private boolean autoReconnect;
 
-    public MixerConstellationConnectable(MixerAPI mixer, MixerConstellation constellation) {
+    public MixerConstellationConnectable(MixerAPI mixer, MixerConstellation constellation, boolean autoReconnect) {
         this.mixer = mixer;
         this.constellation = constellation;
+        this.autoReconnect = autoReconnect;
     }
 
     public boolean connect() {
@@ -140,11 +142,14 @@ public class MixerConstellationConnectable {
             return;
         }
 		this.disconnect();
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException ignored) { }
 
-        this.connect();
+        if(autoReconnect) {
+            try {
+                Thread.sleep(5000);
+                this.reconnectBlocking();
+            } catch (InterruptedException e) {
+            }
+        }
     }
 
     public <T extends AbstractConstellationEvent> boolean on(Class<T> eventType, EventHandler<T> handler) {
