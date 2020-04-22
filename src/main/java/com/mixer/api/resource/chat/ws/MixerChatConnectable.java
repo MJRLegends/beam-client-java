@@ -119,6 +119,15 @@ public class MixerChatConnectable {
         }
     }
 
+    public boolean reconnectBlocking() throws InterruptedException {
+       return this.connection.reconnectBlocking();
+    }
+
+    public boolean reconnect(){
+        this.connection.reconnect();
+        return this.connection.isOpen();
+    }
+
     public boolean isClosed() {
         return connection.isClosed();
     }
